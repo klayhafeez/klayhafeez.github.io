@@ -10,6 +10,15 @@ h1{font-size:28px;line-height:1.25;margin:0 0 4px}h2{font-size:19px;margin:28px 
 nav{border-top:1px solid var(--line);margin-top:40px;padding-top:16px;font-size:14px}nav a{margin-right:16px}
 </style></head>
 <body><main>
-<h1>QuickBooks connected</h1><p class="meta">Ops Assistant</p>
+<h1>QuickBooks connected</h1><p id="status"></p><p class="meta">Ops Assistant</p>
 <p>Your QuickBooks Online company is now connected to Ops Assistant. You can close this window and return to Ops Assistant.</p>
-<p>To connect another company, start the connection again from Ops Assistant and choose that company.</p><nav><a href="/ops-assistant/">Ops Assistant</a><a href="/ops-assistant/privacy.html">Privacy</a><a href="/ops-assistant/terms.html">Terms</a></nav></main></body></html>
+<p>To connect another company, start the connection again from Ops Assistant and choose that company.</p><nav><a href="/ops-assistant/">Ops Assistant</a><a href="/ops-assistant/privacy.html">Privacy</a><a href="/ops-assistant/terms.html">Terms</a></nav></main><script>
+// After Intuit sign-in, hand the one-time code to the Ops Assistant sign-in script running on the owner's computer.
+(function () {
+  var q = new URLSearchParams(location.search);
+  if (q.has("state") && (q.has("code") || q.has("error"))) {
+    document.getElementById("status").textContent = "Finishing connection on this computer\u2026";
+    location.replace("http://localhost:8765/callback" + location.search);
+  }
+})();
+</script></body></html>
